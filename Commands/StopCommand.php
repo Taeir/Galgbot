@@ -4,6 +4,7 @@ namespace Longman\TelegramBot\Commands\SystemCommands;
 
 use Longman\TelegramBot\Commands\SystemCommand;
 use Longman\TelegramBot\Conversation;
+use Longman\TelegramBot\Entities\Keyboard;
 use Longman\TelegramBot\Request;
 use Taeir\Vliegbot\Util;
 
@@ -69,40 +70,17 @@ class StopCommand extends SystemCommand
             "game"
         );
 
-//        if ($this->conversation->exists()) {
-//            $notes = &$this->conversation->notes;
-//
-//            $data['text'] = 'There is already a game in progress!';
-//            !is_array($notes['guessed']) && $notes['guessed'] = [];
-//            $data['reply_markup'] = Util::getKeyboard($notes['guessed']);
-//            return Request::sendMessage($data);
-//        }
-
         $notes = &$this->conversation->notes;
-        !is_array($notes) && $notes = [];
+        if (!is_array($notes)) {
+            $data['text'] = Util::getLang('no_game_to_end');
+        } else {
+            $this->conversation->cancel();
+            $this->conversation->update();
 
-
-        //TODO select a word randomly from a list
-        $notes['word']    = $this->select_random_word();
-        $notes['guessed'] = [];
-        $notes['lives']   = Util::getConfig()['lives'];
-
-        $this->conversation->update();
-
-        $data['text'] = Util::formatResponse($notes['word'], $notes['guessed'], $notes['lives']);
-        $data['reply_markup'] = Util::getKeyboard($notes['guessed']);
-
+            $data['text'] = Util::getLang('game_stopped') . "\n"
+                            . Util::getLang('the_word_was') . ' "' . $notes['word'] . '"';
+            $data['reply_markup'] = Keyboard::remove();
+        }
         return Request::sendMessage($data);
-    }
-
-    private function select_random_word(): string
-    {
-        $config = Util::getConfig();
-        $dictionary = file($config['dictionaries_path'] . '/' . $config['language'] . '.txt');
-        $word = strtoupper(substr($dictionary[rand(0, count($dictionary) -1)], 0, -1));
-
-        print($word . "\n");
-
-        return $word;
     }
 }

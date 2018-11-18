@@ -70,38 +70,28 @@ class StartCommand extends SystemCommand
             'reply_to_message_id' => $message->getMessageId(),
         ];
 
-//        if ($chat->isGroupChat() || $chat->isSuperGroup()) {
-//            //reply to message id is applied by default
-//            //Force reply is applied by default so it can work with privacy on
-//            $data['reply_markup'] = Keyboard::forceReply(['selective' => false]);
-//        }
-
-        //Get the conversation for user id 0, since the conversation must be shared between users.
+        //Get the conversation for a fixed user id, since the conversation must be shared between users.
         $this->conversation = new Conversation(
             65961880,
             $chat_id,
             "game"
         );
 
-//        if ($this->conversation->exists()) {
-//            $notes = &$this->conversation->notes;
-//
-//            $data['text'] = 'There is already a game in progress!';
-//            !is_array($notes['guessed']) && $notes['guessed'] = [];
-//            $data['reply_markup'] = Util::getKeyboard($notes['guessed']);
-//            return Request::sendMessage($data);
-//        }
-
         $notes = &$this->conversation->notes;
-        !is_array($notes) && $notes = [];
+        if (is_array($notes)) {
+            $data['text'] = Util::getLang('game_in_progress');
+            return Request::sendMessage($data);
+        }
 
-
-        //TODO select a word randomly from a list
-        $notes['word']    = $this->select_random_word();
+        $notes = [];
+        $notes['word']    = $this->selectRandomWord();
         $notes['guessed'] = [];
         $notes['lives']   = Util::getConfig()['lives'];
 
         $this->conversation->update();
+
+        Util::logMsg('Starting new game in ' . $chat_id . ' (' . $chat->getTitle() . ").\n\t"
+            . 'Word: ' . $notes['word'] . ', Lives: ' . $notes['lives']);
 
         $data['text'] = Util::formatResponse($notes['word'], $notes['guessed'], $notes['lives']);
         $data['reply_markup'] = Util::getKeyboard($notes['guessed']);
@@ -109,14 +99,14 @@ class StartCommand extends SystemCommand
         return Request::sendMessage($data);
     }
 
-    private function select_random_word(): string
+    /**
+     * @return string
+     *      a randomly selected word
+     */
+    private function selectRandomWord(): string
     {
         $config = Util::getConfig();
         $dictionary = file($config['dictionaries_path'] . '/' . $config['language'] . '.txt');
-        $word = strtoupper(substr($dictionary[rand(0, count($dictionary) -1)], 0, -1));
-
-        print($word . "\n");
-
-        return $word;
+        return strtoupper(substr($dictionary[rand(0, count($dictionary) -1)], 0, -1));
     }
 }

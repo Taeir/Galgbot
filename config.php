@@ -1,5 +1,5 @@
 <?php
-return array(
+return [
     //=============================================================================================
     //Telegram
     //=============================================================================================
@@ -14,33 +14,32 @@ return array(
 
     //URL for the hook.php
     'hook_url'       => '',
-    
+
     //=============================================================================================
     //MySQL
     //=============================================================================================
-    'enable_mysql' => true,
     'mysql'        => [
         'host'     => 'localhost',
         'user'     => '',
         'password' => '',
         'database' => 'galgbot',
     ],
-    
+
     //=============================================================================================
     //Folders
     //=============================================================================================
     //Path of the Commands folder
     'commands_path' => __DIR__ . '/Commands',
-    
+
     //=============================================================================================
     //Logging
     //=============================================================================================
     //Enable error logging
     'log_errors'    => true,
-    
+
     //Enable debug logging
     'log_debug'     => true,
-    
+
     //Location of the log files
     'log_location'  => __DIR__ . '/logs',
 
@@ -53,6 +52,9 @@ return array(
     //The location where dictionaries are (language.txt)
     'dictionaries_path' => __DIR__ . '/Dictionaries',
 
+    //The location where language files are (language.php)
+    'languages_path'    => __DIR__ . '/Languages',
+
     //The language to use
-    'language'          => 'nl',
-);
+    'language'          => 'dutch',
+];

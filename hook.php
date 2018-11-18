@@ -10,9 +10,9 @@ if ($config === false) {
 try {
     // Create Telegram API object
     $telegram = new Longman\TelegramBot\Telegram($config['api_key'], $config['username']);
-    
+
     $telegram->addCommandsPath($config['commands_path']);
-    
+
     if ($config['log_errors'] === true) {
         Longman\TelegramBot\TelegramLog::initErrorLog($config['log_location'] . "/{$config['username']}_error.log");
     }
@@ -24,14 +24,14 @@ try {
     if ($config['enable_mysql'] === true) {
         $telegram->enableMySql($config['mysql']);
     }
-    
+
     //Note: the limiter can only be enabled if the database is enabled
     $telegram->enableLimiter();
 
     if ($config['enable_webhook'] === true) {
         $telegram->handle();
     } else {
-        while(true) {
+        while (true) {
             $telegram->handleGetUpdates();
         }
     }

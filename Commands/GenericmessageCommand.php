@@ -48,39 +48,35 @@ class GenericmessageCommand extends SystemCommand
      */
     public function execute()
     {
-        //Check config
         if (!Util::isConfigValid()) {
             return $this->sendReply('Config file not found!');
         }
 
         $message = $this->getMessage();
         $chat_id = $message->getChat()->getId();
-        $user_id = $message->getFrom()->getId();
         $letter  = strtoupper(trim($message->getText()));
 
         //TODO Allow full word guesses for 1 life?
-        //Not a single letter
-        if (strlen($letter) != 1) {
+        //Ignore messages which contain more than one letter or that do not consist of only A-Z.
+        if (strlen($letter) != 1 || !preg_match('/[A-Z]/', $letter)) {
             return Request::emptyResponse();
         }
 
+        //Get the conversation for a fixed user id, since the conversation must be shared between users.
         $this->conversation = new Conversation(
             65961880,
             $chat_id,
             "game"
         );
 
-        //There is no game in progress
-        if (!$this->conversation->exists()) {
-            return Request::emptyResponse();
-        }
-
         $notes = &$this->conversation->notes;
-        !is_array($notes['guessed']) && $notes['guessed'] = [];
 
-        if ($notes['word'] === null) {
+        //There is no game in progress
+        if (!$this->conversation->exists() || !is_array($notes)) {
             return Request::emptyResponse();
         }
+
+        !is_array($notes['guessed']) && $notes['guessed'] = [];
 
         //This letter was already guessed
         if (in_array($letter, $notes['guessed'])) {
@@ -91,9 +87,9 @@ class GenericmessageCommand extends SystemCommand
         $notes['guessed'][] = $letter;
         if (count($positions) === 0) {
             $notes['lives']--;
-            $guess_part = "Verkeerde letter!\n";
+            $guess_part = Util::getLang('wrong_guess') . "\n";
         } else {
-            $guess_part = "Correcte letter!\n";
+            $guess_part = Util::getLang('correct_guess') . "\n";
         }
 
         $data = [
@@ -103,11 +99,14 @@ class GenericmessageCommand extends SystemCommand
 
         //Check word guessed
         if ($notes['lives'] === 0) {
-            $data['text'] = $guess_part . "\nJe hebt verloren " . Emoji::pensiveFace() . "!\nHet woord was \"" . $notes['word'] . "\"";
+            $data['text'] = $guess_part . "\n"
+                            . Util::getLang('game_lost') . Emoji::pensiveFace() . "!\n"
+                            . Util::getLang('the_word_was') . ' "' . $notes['word'] . '"';
             $data['reply_markup'] = Keyboard::remove();
             $this->conversation->stop();
         } else if ($this->checkWon($notes['word'], $notes['guessed'])) {
-            $data['text'] = "Gefeliciteerd! Je hebt gewonnen " . Emoji::partyPopper() . "!\nHet woord was \"" . $notes['word'] . "\"";
+            $data['text'] = Util::getLang('game_won') . Emoji::partyPopper() . "!\n"
+                            . Util::getLang('the_word_was') . ' "' . $notes['word'] . '"';
             $data['reply_markup'] = Keyboard::remove();
             $this->conversation->stop();
         } else {
@@ -120,6 +119,15 @@ class GenericmessageCommand extends SystemCommand
         return Request::sendMessage($data);
     }
 
+    /**
+     * @param string $word
+     *      the word
+     * @param array $guessed
+     *      the guesses made
+     *
+     * @return bool
+     *      true if the game has been won, false otherwise
+     */
     private function checkWon(string $word, array $guessed)
     {
         return count(array_diff(str_split($word), $guessed)) === 0;
@@ -153,6 +161,8 @@ class GenericmessageCommand extends SystemCommand
      * Sends the given message as a reply.
      *
      * @param string $text
+     *      the message to send
+     *
      * @return ServerResponse
      */
     public function sendReply(string $text): ServerResponse
