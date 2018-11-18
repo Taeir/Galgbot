@@ -14,13 +14,13 @@ try {
     $telegram->addCommandsPath($config['commands_path']);
 
     if ($config['log_errors'] === true) {
-        Longman\TelegramBot\TelegramLog::initErrorLog($config['log_location'] . "/{$config['username']}_error.log");
+        Longman\TelegramBot\TelegramLog::initErrorLog("{$config['log_location']}/{$config['username']}_error.log");
     }
     if ($config['log_debug'] === true) {
-        Longman\TelegramBot\TelegramLog::initDebugLog($config['log_location'] . "/{$config['username']}_debug.log");
-        Longman\TelegramBot\TelegramLog::initUpdateLog($config['log_location'] . "/{$config['username']}_update.log");
+        Longman\TelegramBot\TelegramLog::initDebugLog("{$config['log_location']}/{$config['username']}_debug.log");
+        Longman\TelegramBot\TelegramLog::initUpdateLog("{$config['log_location']}/{$config['username']}_update.log");
     }
-    
+
     $telegram->enableMySql($config['mysql']);
 
     //Note: the limiter can only be enabled if the database is enabled
