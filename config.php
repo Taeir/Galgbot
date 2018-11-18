@@ -13,7 +13,7 @@ return array(
     'enable_webhook' => false,
 
     //URL for the hook.php
-    'hook_url'       => 'https://taico.nl/vliegbot/hook.php',
+    'hook_url'       => '',
     
     //=============================================================================================
     //MySQL
