@@ -20,10 +20,8 @@ try {
         Longman\TelegramBot\TelegramLog::initDebugLog($config['log_location'] . "/{$config['username']}_debug.log");
         Longman\TelegramBot\TelegramLog::initUpdateLog($config['log_location'] . "/{$config['username']}_update.log");
     }
-
-    if ($config['enable_mysql'] === true) {
-        $telegram->enableMySql($config['mysql']);
-    }
+    
+    $telegram->enableMySql($config['mysql']);
 
     //Note: the limiter can only be enabled if the database is enabled
     $telegram->enableLimiter();
