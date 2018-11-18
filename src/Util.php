@@ -24,6 +24,20 @@ class Util {
     }
 
     /**
+     * Retrieves the given key from the config, and returns the result.
+     *
+     * @param string $key
+     * @return mixed
+     */
+    public static function config(string $key)
+    {
+        if (static::$config === null) {
+            static::$config = include(__DIR__ . '/../config.php');
+        }
+        return static::$config[$key];
+    }
+
+    /**
      * @return bool
      *      true if the config is valid, false otherwise
      */
@@ -42,7 +56,7 @@ class Util {
     public static function getLang(string $key): string
     {
         if (static::$lang === null) {
-            static::$lang = include(static::getConfig()['languages_path'] . '/' . static::getConfig()['language'] . '.php');
+            static::$lang = include(static::config('languages_path') . '/' . static::config('language') . '.php');
         }
         return static::$lang[$key];
     }
@@ -233,8 +247,8 @@ class Util {
      */
     public static function logMsg(string $msg)
     {
-        if (static::getConfig()['log_debug'] === true) {
-            file_put_contents(static::getConfig()['log_location'] . '/debug.log', $msg . PHP_EOL, FILE_APPEND | LOCK_EX);
+        if (static::config('log_debug') === true) {
+            file_put_contents(static::config('log_location') . '/debug.log', $msg . PHP_EOL, FILE_APPEND | LOCK_EX);
         }
     }
 
@@ -246,8 +260,8 @@ class Util {
      */
     public static function errMsg(string $msg)
     {
-        if (static::getConfig()['log_errors'] === true) {
-            file_put_contents(static::getConfig()['log_location'] . '/error.log', $msg . PHP_EOL, FILE_APPEND | LOCK_EX);
+        if (static::config('log_errors') === true) {
+            file_put_contents(static::config('log_location') . '/error.log', $msg . PHP_EOL, FILE_APPEND | LOCK_EX);
         }
     }
 }

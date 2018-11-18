@@ -1,12 +1,4 @@
 <?php
-/**
- * This file is part of the TelegramBot package.
- *
- * (c) Avtandil Kikabidze aka LONGMAN <akalongman@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 
 namespace Longman\TelegramBot\Commands\SystemCommands;
 
@@ -63,7 +55,6 @@ class StartCommand extends SystemCommand
         $message = $this->getMessage();
         $chat = $message->getChat();
         $chat_id = $chat->getId();
-        $user_id = $message->getFrom()->getId();
 
         $data = [
             'chat_id' => $chat_id,
@@ -86,12 +77,12 @@ class StartCommand extends SystemCommand
         $notes = [];
         $notes['word']    = $this->selectRandomWord();
         $notes['guessed'] = [];
-        $notes['lives']   = Util::getConfig()['lives'];
+        $notes['lives']   = Util::config('lives');
 
         $this->conversation->update();
 
-        Util::logMsg('Starting new game in ' . $chat_id . ' (' . $chat->getTitle() . ").\n\t"
-            . 'Word: ' . $notes['word'] . ', Lives: ' . $notes['lives']);
+        Util::logMsg("Starting new game in {$chat_id} ({$chat->getTitle()}).\n\t"
+            . "Word: {$notes['word']}, Lives: {$notes['lives']}");
 
         $data['text'] = Util::formatResponse($notes['word'], $notes['guessed'], $notes['lives']);
         $data['reply_markup'] = Util::getKeyboard($notes['guessed']);
@@ -106,7 +97,7 @@ class StartCommand extends SystemCommand
     private function selectRandomWord(): string
     {
         $config = Util::getConfig();
-        $dictionary = file($config['dictionaries_path'] . '/' . $config['language'] . '.txt');
+        $dictionary = file("{$config['dictionaries_path']}/{$config['language']}.txt");
         return strtoupper(substr($dictionary[rand(0, count($dictionary) -1)], 0, -1));
     }
 }
