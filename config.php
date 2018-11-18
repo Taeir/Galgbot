@@ -23,7 +23,7 @@ return array(
         'host'     => 'localhost',
         'user'     => '',
         'password' => '',
-        'database' => 'vliegbot',
+        'database' => 'galgbot',
     ],
     
     //=============================================================================================
