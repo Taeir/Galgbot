@@ -46,8 +46,35 @@ return [
     //=============================================================================================
     //Game
     //=============================================================================================
-    //The number of lives for each game
-    'lives'             => 10,
+    //The number of lives for each game, based on the number of unique letters in a word
+    'lives' => [
+        1  => 12,
+        2  => 12,
+        3  => 12,
+        4  => 10,
+        5  => 10,
+        6  => 9,
+        7  => 9,
+        8  => 8,
+        9  => 7,
+        10 => 7,
+        11 => 6,
+        12 => 6,
+        13 => 5,
+        14 => 5,
+        15 => 4,
+        16 => 4,
+        17 => 4,
+        18 => 3,
+        19 => 3,
+        20 => 3,
+        21 => 2,
+        22 => 2,
+        23 => 2,
+        24 => 2,
+        25 => 2,
+        26 => 1,
+    ],
 
     //The location where dictionaries are (language.txt)
     'dictionaries_path' => __DIR__ . '/Dictionaries',

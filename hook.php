@@ -29,8 +29,15 @@ try {
     if ($config['enable_webhook'] === true) {
         $telegram->handle();
     } else {
-        while (true) {
-            $telegram->handleGetUpdates();
+        while(true) {
+            $server_response = $telegram->handleGetUpdates(100, 60);
+            if ($server_response->isOk()) {
+                $update_count = count($server_response->getResult());
+                echo date('Y-m-d H:i:s', time()) . ' - Processed ' . $update_count . ' updates' . PHP_EOL;
+            } else {
+                echo date('Y-m-d H:i:s', time()) . ' - Failed to fetch updates' . PHP_EOL;
+                echo $server_response->printError();
+            }
         }
     }
 } catch (Longman\TelegramBot\Exception\TelegramException $e) {

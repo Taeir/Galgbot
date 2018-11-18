@@ -1,11 +1,4 @@
 ADHD
-ADSL
-AMvB
-AOV
-AOW
-AROB
-ASFA
-ATB
 Aarlen
 Aarlenaar
 Aarlens
@@ -131,13 +124,6 @@ Aziatisch
 Azoren
 Azteek
 Azteken
-B
-BA
-BOB
-BOG
-BS
-BSE
-BV
 Babylonisch
 Bacchusfeest
 Balinees
@@ -281,7 +267,6 @@ Bulgarije
 Bussumer
 Byzantijn
 Byzantijns
-CBB
 Cajun
 Calvarieberg
 Canada
@@ -368,10 +353,8 @@ Duitse
 Duitser
 Duitsland
 Duitstalig
-EG
 EHBO
 EU
-EVA
 Ecuador
 Ecuadoraan
 Ecuadoraans
@@ -468,7 +451,6 @@ Friesland
 Friestalig
 Friestalige
 Friezin
-GHz
 Gallisch
 Galliër
 Galliërs
@@ -520,8 +502,6 @@ Guyaan
 Guyaans
 Guyana
 Guyanees
-HTM
-HTML
 Haags
 Haarlem
 Haarlemmer
@@ -597,7 +577,6 @@ IJslander
 IJslands
 IJzerbedevaart
 IQ
-ISBN
 IT
 Iberisch
 Iberische
@@ -677,8 +656,6 @@ Jordanees
 Jordanië
 Jordaniër
 Junglecommando
-KB
-KZ
 Kaaps
 Kaapverdiaan
 Kaapverdisch
@@ -817,10 +794,7 @@ Luxemburg
 Luxemburger
 Luxemburgs
 Luxemburgse
-M
 MA
-ME
-MKZ
 MRI
 Maagd
 Maagdeneilanden
@@ -913,7 +887,6 @@ Myanmar
 Myanmarees
 NAVO
 NB
-NMBS
 NS
 Naams
 Naamse
@@ -965,7 +938,6 @@ Noors
 Noorse
 Nutslezing
 Nutsschool
-OCMW
 Oceanisch
 Oekraïens
 Oekraïense
@@ -1013,8 +985,6 @@ Overijssel
 Overijsselaar
 Overijssels
 Overmaas
-PPS
-PS
 Pakistaan
 Pakistaans
 Pakistaanse
@@ -1095,7 +1065,6 @@ Pyrenees
 Pyreneeën
 Qatar
 Quirinaal
-RAM
 RSI
 Ram
 Randstad
@@ -1146,10 +1115,7 @@ Rusland
 Russin
 Russisch
 Russische
-SARS
-SGML
 SOS
-SUV
 Saba
 Sabaans
 Sabaanse
@@ -1284,7 +1250,6 @@ Swahili
 Syrisch
 Syrië
 Syriër
-TGV
 Tachtiger
 Tachtigers
 Tafelberg
@@ -1329,7 +1294,6 @@ Turkse
 Tweelingen
 Twentenaar
 Twents
-URL
 Urdu
 Uruguay
 Uruguayaan
@@ -1339,9 +1303,6 @@ Utopia
 Utrecht
 Utrechtenaar
 Utrechts
-VN
-VSB
-VUT
 VVV
 Vaderdag
 Valentijnsdag
@@ -1383,8 +1344,6 @@ Vrijheidsbeeld
 Vuelta
 Vulgaat
 Vulgata
-WA
-WOB
 Waal
 Waals
 Waalse
@@ -1445,7 +1404,6 @@ Zwolle
 Zwollenaar
 Zwols
 Zwolse
-a
 aagje
 aagt
 aagtappel
@@ -19999,7 +19957,6 @@ bètavak
 bètaversie
 bètawetenschap
 bühne
-c
 caban
 cabaret
 cabaretavond
@@ -24012,7 +23969,6 @@ cytologisch
 cytoplasma
 cytosine
 cytostatica
-d
 daad
 daadkracht
 daadkrachtig
@@ -30069,7 +30025,6 @@ déchéance
 dégénéré
 délégué
 déléguée
-e
 eb
 ebbe
 ebben
@@ -32931,7 +32886,6 @@ ezelsvel
 ezelsveulen
 ezelswagen
 ezelwagen
-f
 fa
 faal
 faalangst
@@ -35554,7 +35508,6 @@ fytotherapie
 fêteren
 föhn
 föhnen
-g
 gaaf
 gaafheid
 gaai
@@ -42097,7 +42050,6 @@ gyroscopisch
 gênant
 gêne
 götterdämmerung
-h
 ha
 haaf
 haag
@@ -47493,7 +47445,6 @@ hèhè
 hé
 hôtelier
 hüttenkäse
-i
 ia
 iatrogeen
 iatrosofie
@@ -50630,7 +50581,6 @@ ivoorzwart
 ivoren
 izabel
 izabelkleurig
-j
 ja
 jaaglijn
 jaagpaard
@@ -51683,7 +51633,6 @@ juwelierswinkel
 juwelierszaak
 juwelig
 juxtapositie
-k
 kW
 kWh
 ka
@@ -59856,7 +59805,6 @@ kynologie
 kynologisch
 kynoloog
 kür
-l
 la
 laadbak
 laadboom
@@ -64508,7 +64456,6 @@ lyrisme
 lysine
 lysol
 löss
-m
 m/s
 ma
 maag
@@ -70674,7 +70621,6 @@ mytylschool
 myxomatose
 mêlee
 mêleren
-n
 na
 naad
 naadloos
@@ -72954,7 +72900,6 @@ nylonweefsel
 nymfomaan
 nymfomane
 nymfomanie
-o
 oase
 oasis
 obduceren
@@ -80550,7 +80495,6 @@ ozonlucht
 ozonsfeer
 ozonwater
 oöliet
-p
 pH
 pa
 paadje
@@ -88096,7 +88040,6 @@ pyrronisme
 pyrrusoverwinning
 pythisch
 python
-q
 qat
 qua
 quad
@@ -88189,7 +88132,6 @@ quotiënt
 quotum
 quotumregeling
 quotums
-r
 ra
 raad
 raadadviseur
@@ -93547,7 +93489,6 @@ röntgenstraling
 röntgentherapie
 rösti
 rücksichtslos
-s
 sa
 saai
 saaien
@@ -105952,7 +105893,6 @@ systematisch
 systematiseren
 systematisering
 sèvres
-t
 taai
 taaie
 taaien
@@ -112441,7 +112381,6 @@ typologisch
 typoscript
 tyrannosaurus
 tzatziki
-u
 ub
 ud
 ufo
@@ -113988,7 +113927,6 @@ uwer
 uwerzijds
 uzelf
 uzi
-v
 va
 vaag
 vaagheid
@@ -123758,7 +123696,6 @@ vuurzee
 vuurzuil
 vwo
 vzw
-w
 waadbaar
 waadpoot
 waadvogel
@@ -128603,7 +128540,6 @@ wurm
 wurmen
 wyandotte
 wybertje
-x
 xanthine
 xanthofyl
 xanthoom
@@ -128631,7 +128567,6 @@ xylofonist
 xylofoon
 xylografie
 xyloliet
-y
 yahtzee
 yaleslot
 yam
@@ -128665,7 +128600,6 @@ yuppenstel
 yuppie
 yuppieachtig
 yuppies
-z
 zaad
 zaadbakje
 zaadbal
@@ -132087,7 +132021,6 @@ zwoor
 zwoord
 zymose
 zèta
-à
 échéance
 élégance
 één
@@ -158070,16 +158003,6 @@ poppenkasterij
 privégedrag
 pottenbakkersdraaischijf
 potroos
-AAW
-ABU
-AM
-AMAR
-ANG
-ARAB
-ARDS
-ARP
-AVI
-AWW
 Alpenlandschap
 BAB
 Balkanstaten
@@ -158101,26 +158024,13 @@ Graspop
 Haagje
 Hanzelijn
 Hollywoodster
-I
 IBAN
-ID
-II
-III
 IJzerfront
-IP
-IX
-KAJ
-KINT
 Kamerbrief
 Klaagliederen
 Lissabonstrategie
 Malagassische
 Moederbond
-NIA
-NIAS
-NIC
-NOT
-NUR
 Noordzeeconferentie
 Noordzeegebied
 Noordzeemilieu
@@ -158130,9 +158040,6 @@ Onderwijsraad
 Oranjecomité
 Oranjelegioen
 Psalmen
-RIN
-RIZA
-ROO
 Rekenkamer
 Rijksarchiefschool
 Rijksverkeersinspectie
@@ -158140,11 +158047,6 @@ Rijnbrug
 Rijndelta
 Rijnland
 Rijnmondgebied
-SAI
-SIDS
-SIE
-SIS
-SU
 Scheldestad
 Schipholtunnel
 Slangendrager
@@ -158153,12 +158055,7 @@ Sovjetregime
 Sovjettijdperk
 Spreuken
 Spullenhulp
-THE
-TIA
 Toeslagenwet
-V
-VII
-VIII
 Verantwoordingsdag
 Volkskrantlezer
 Volkswagenfabriek
@@ -158169,28 +158066,6 @@ Wereldnatuurfonds
 Wereldvoedseldag
 Wereldvrouwendag
 Werkloosheidswet
-X
-XI
-XII
-XIII
-XIV
-XIX
-XLI
-XLII
-XLIV
-XLIX
-XLV
-XLVI
-XV
-XVII
-XX
-XXI
-XXII
-XXIV
-XXIX
-XXV
-XXVI
-XXX
 Ziekenfondsraad
 Ziekenfondswet
 Ziektewet

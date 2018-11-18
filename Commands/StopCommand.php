@@ -56,7 +56,6 @@ class StopCommand extends SystemCommand
         $message = $this->getMessage();
         $chat = $message->getChat();
         $chat_id = $chat->getId();
-        $user_id = $message->getFrom()->getId();
 
         $data = [
             'chat_id' => $chat_id,
@@ -71,15 +70,15 @@ class StopCommand extends SystemCommand
         );
 
         $notes = &$this->conversation->notes;
-        if (!is_array($notes)) {
+        if (!is_array($notes) || empty($notes)) {
             $data['text'] = Util::getLang('no_game_to_end');
         } else {
-            $this->conversation->cancel();
-            $this->conversation->update();
-
             $data['text'] = Util::getLang('game_stopped') . "\n"
                             . Util::getLang('the_word_was') . ' "' . $notes['word'] . '"';
             $data['reply_markup'] = Keyboard::remove();
+
+            $this->conversation->cancel();
+            $this->conversation->update();
         }
         return Request::sendMessage($data);
     }

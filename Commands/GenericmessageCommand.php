@@ -72,7 +72,7 @@ class GenericmessageCommand extends SystemCommand
         $notes = &$this->conversation->notes;
 
         //There is no game in progress
-        if (!$this->conversation->exists() || !is_array($notes)) {
+        if (!$this->conversation->exists() || !is_array($notes) || empty($notes)) {
             return Request::emptyResponse();
         }
 
@@ -100,13 +100,15 @@ class GenericmessageCommand extends SystemCommand
         //Check word guessed
         if ($notes['lives'] === 0) {
             $data['text'] = $guess_part . "\n"
-                            . Util::getLang('game_lost') . Emoji::pensiveFace() . "!\n"
-                            . Util::getLang('the_word_was') . ' "' . $notes['word'] . '"';
+                            . Util::getLang('game_lost') . '! ' . Emoji::pensiveFace() . "\n"
+                            . Util::getLang('the_word_was') . ' "' . $notes['word'] . "\"\n"
+                            . Util::getLang('play_again') . ' /start';
             $data['reply_markup'] = Keyboard::remove();
             $this->conversation->stop();
         } else if ($this->checkWon($notes['word'], $notes['guessed'])) {
-            $data['text'] = Util::getLang('game_won') . Emoji::partyPopper() . "!\n"
-                            . Util::getLang('the_word_was') . ' "' . $notes['word'] . '"';
+            $data['text'] = Util::getLang('game_won') . ' ' . Emoji::partyPopper() . "!\n"
+                            . Util::getLang('the_word_was') . ' "' . $notes['word'] . "\"\n"
+                            . Util::getLang('play_again') . ' /start';
             $data['reply_markup'] = Keyboard::remove();
             $this->conversation->stop();
         } else {

@@ -124,6 +124,22 @@ class Util {
     }
 
     /**
+     * Gets the correct number of lives for the given word.
+     * The number of lives may depend on the difficulty of the word in some way.
+     *
+     * @param string $word
+     *      the word
+     *
+     * @return int
+     *      the number of lives
+     */
+    public static function getLives(string $word): int
+    {
+        $unique = count(array_unique(str_split(self::normalizeAccents($word))));
+        return static::config('lives')[$unique];
+    }
+
+    /**
      * Turns all accented characters in the given string into their unaccented variants.
      *
      * @param string $string

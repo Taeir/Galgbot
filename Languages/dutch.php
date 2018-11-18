@@ -14,11 +14,12 @@ return [
     //Messages for the stop command
     'game_in_progress' => 'Er is al een spel bezig!',
     'no_game_to_end' => 'Er is geen spel bezig.',
+    'game_stopped' => 'Het huidige spel is gestopt.',
 
     //======================================================
     //Messages for winning and losing
     'game_lost' => 'Je hebt verloren',
     'game_won' => 'Gefeliciteerd! Je hebt gewonnen',
     'the_word_was' => 'Het woord was',
-
+    'play_again' => 'Wil je nog eens spelen?',
 ];

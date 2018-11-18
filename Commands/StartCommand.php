@@ -69,7 +69,7 @@ class StartCommand extends SystemCommand
         );
 
         $notes = &$this->conversation->notes;
-        if (is_array($notes)) {
+        if (is_array($notes) && !empty($notes)) {
             $data['text'] = Util::getLang('game_in_progress');
             return Request::sendMessage($data);
         }
@@ -77,7 +77,7 @@ class StartCommand extends SystemCommand
         $notes = [];
         $notes['word']    = $this->selectRandomWord();
         $notes['guessed'] = [];
-        $notes['lives']   = Util::config('lives');
+        $notes['lives']   = Util::getLives($notes['word']);
 
         $this->conversation->update();
 
