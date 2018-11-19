@@ -21,7 +21,7 @@ try {
         Longman\TelegramBot\TelegramLog::initUpdateLog("{$config['log_location']}/{$config['username']}_update.log");
     }
 
-    $telegram->enableMySql($config['mysql']);
+    $telegram->enableMySql($config['mysql'], $config['mysql_table_prefix']);
 
     //Note: the limiter can only be enabled if the database is enabled
     $telegram->enableLimiter();

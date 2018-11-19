@@ -22,4 +22,17 @@ return [
     'game_won' => 'Gefeliciteerd! Je hebt gewonnen',
     'the_word_was' => 'Het woord was',
     'play_again' => 'Wil je nog eens spelen?',
+
+    //======================================================
+    //Word explanation (definition)
+    'definition_text' => 'Betekenis',
+    'definition_url' => 'https://nl.wiktionary.org/wiki/',
+
+    //======================================================
+    //Messages for statistics
+    'stats_Games_won' => 'Spellen gewonnen',
+    'stats_Games_stopped' => 'Spellen gestopt',
+    'stats_avg_lives_left' => 'Gemiddeld aantal levens over',
+    'stats_letters' => 'Gegokte letters: correct/totaal (percentage correct)',
+
 ];

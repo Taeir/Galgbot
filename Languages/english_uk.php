@@ -22,4 +22,16 @@ return [
     'game_won' => 'Congratulations! You won',
     'the_word_was' => 'The word was',
     'play_again' => 'Do you want to play again?',
+
+    //======================================================
+    //Word explanation (definition)
+    'definition_text' => 'Definition',
+    'definition_url' => 'https://en.wiktionary.org/wiki/',
+
+    //======================================================
+    //Messages for statistics
+    'stats_Games_won' => 'Games won',
+    'stats_Games_stopped' => 'Games stopped',
+    'stats_avg_lives_left' => 'Average number of lives left',
+    'stats_letters' => 'Guessed letters: correct/total (percentage correct)',
 ];

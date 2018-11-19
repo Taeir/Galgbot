@@ -77,7 +77,7 @@ class StartCommand extends SystemCommand
         $notes = [];
         $notes['word']    = $this->selectRandomWord();
         $notes['guessed'] = [];
-        $notes['lives']   = Util::getLives($notes['word']);
+        $notes['lives']   = $notes['startlives'] = Util::getLives($notes['word']);
 
         $this->conversation->update();
 

@@ -11,7 +11,8 @@
         "php": ">=7.2",
         "longman/telegram-bot": "dev-patch-1",
         "spatie/emoji": "^2.0",
-      "ext-mbstring": "*"
+      "ext-mbstring": "*",
+      "ext-json": "*"
     },
     "autoload": {
         "psr-4": {

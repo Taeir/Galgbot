@@ -83,7 +83,7 @@ class GenericmessageCommand extends SystemCommand
             return Request::emptyResponse();
         }
 
-        $positions = $this->strpos_all(strtoupper($notes['word']), $letter);
+        $positions = $this->strpos_all(strtoupper(Util::normalizeAccents($notes['word'])), $letter);
         $notes['guessed'][] = $letter;
         if (count($positions) === 0) {
             $notes['lives']--;
@@ -99,18 +99,36 @@ class GenericmessageCommand extends SystemCommand
 
         //Check word guessed
         if ($notes['lives'] === 0) {
+            $notes['won'] = false;
+            $this->conversation->update();
+
             $data['text'] = $guess_part . "\n"
                             . Util::getLang('game_lost') . '! ' . Emoji::pensiveFace() . "\n"
                             . Util::getLang('the_word_was') . ' "' . $notes['word'] . "\"\n"
+                            . '[' . Util::getLang('definition_text') . '](' . Util::getLang('definition_url') . urlencode(strtolower($notes['word'])) . ")\n"
                             . Util::getLang('play_again') . ' /start';
             $data['reply_markup'] = Keyboard::remove();
+            $data['parse_mode'] = 'Markdown';
+            $data['disable_web_page_preview'] = true;
+
             $this->conversation->stop();
+
+            Util::logStats($chat_id, $message->getFrom()->getId(), false);
         } else if ($this->checkWon($notes['word'], $notes['guessed'])) {
+            $notes['won'] = true;
+            $this->conversation->update();
+
             $data['text'] = Util::getLang('game_won') . ' ' . Emoji::partyPopper() . "!\n"
                             . Util::getLang('the_word_was') . ' "' . $notes['word'] . "\"\n"
+                            . '[' . Util::getLang('definition_text') . '](' . Util::getLang('definition_url') . urlencode(strtolower($notes['word'])) . ")\n"
                             . Util::getLang('play_again') . ' /start';
             $data['reply_markup'] = Keyboard::remove();
+            $data['parse_mode'] = 'Markdown';
+            $data['disable_web_page_preview'] = true;
+
             $this->conversation->stop();
+
+            Util::logStats($chat_id, $message->getFrom()->getId(), true);
         } else {
             $data['text'] = $guess_part . Util::formatResponse($notes['word'], $notes['guessed'], $notes['lives']);
             $data['reply_markup'] = Util::getKeyboard($notes['guessed']);

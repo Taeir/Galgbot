@@ -280,4 +280,10 @@ class Util {
             file_put_contents(static::config('log_location') . '/error.log', $msg . PHP_EOL, FILE_APPEND | LOCK_EX);
         }
     }
+
+    public static function logStats($chat_id, $user_id, bool $win)
+    {
+        file_put_contents(static::config('log_location') . '/stats.log',
+            'c: ' . $chat_id . ' u: ' . $user_id . ' w: ' . $win . PHP_EOL, FILE_APPEND | LOCK_EX);
+    }
 }
