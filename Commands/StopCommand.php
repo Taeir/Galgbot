@@ -6,7 +6,7 @@ use Longman\TelegramBot\Commands\SystemCommand;
 use Longman\TelegramBot\Conversation;
 use Longman\TelegramBot\Entities\Keyboard;
 use Longman\TelegramBot\Request;
-use Taeir\Vliegbot\Util;
+use Taeir\Galgbot\Util;
 
 /**
  * Stop command

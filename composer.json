@@ -1,5 +1,5 @@
 {
-    "name": "Taeir/Vliegbot",
+    "name": "Taeir/Galgbot",
     "type": "project",
     "repositories": [
         {
@@ -10,18 +10,19 @@
     "require": {
         "php": ">=7.2",
         "longman/telegram-bot": "dev-patch-1",
+        "guzzlehttp/guzzle": "~6.0",
         "spatie/emoji": "^2.0",
-      "ext-mbstring": "*",
-      "ext-json": "*"
+        "ext-mbstring": "*",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
-            "Taeir\\Vliegbot\\": "src/"
+            "Taeir\\Galgbot\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Taeir\\Vliegbot\\": "test/"
+            "Taeir\\Galgbot\\": "test/"
         }
     }
 }

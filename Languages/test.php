@@ -26,11 +26,8 @@ return [
     //======================================================
     //Word explanation (definition)
     'definition_text' => 'Betekenis',
-
-    //URLs for the definitions (with trailing /)
     'definition_url' => [
         'https://nl.wiktionary.org/wiki/',
-        'https://www.vandale.nl/gratis-woordenboek/nederlands/betekenis/',
     ],
 
     //======================================================

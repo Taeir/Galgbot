@@ -1,6 +1,6 @@
 <?php
 
-namespace Taeir\Vliegbot;
+namespace Taeir\Galgbot;
 
 
 use Longman\TelegramBot\Entities\Keyboard;
@@ -50,10 +50,10 @@ class Util {
      * @param string $key
      *      the key to request
      *
-     * @return string
+     * @return string|array
      *      the translation for the given key
      */
-    public static function getLang(string $key): string
+    public static function getLang(string $key)
     {
         if (static::$lang === null) {
             static::$lang = include(static::config('languages_path') . '/' . static::config('language') . '.php');
@@ -76,12 +76,11 @@ class Util {
      */
     public static function formatResponse(string $word, array $guessed, int $lives): string
     {
-        $word = static::normalizeAccents($word);
-        $word_len = strlen($word);
+        $word_len = mb_strlen($word, "UTF-8");
         $word_part = '';
         for ($i = 0; $i < $word_len; $i++) {
-            $letter = $word[$i];
-            if (in_array($letter, $guessed)) {
+            $letter = mb_substr($word, $i, 1, "UTF-8");
+            if (in_array(static::normalizeAccents($letter), $guessed)) {
                 $word_part .= $letter;
             } else {
                 $word_part .= Emoji::heavyMinusSign();
@@ -247,7 +246,10 @@ class Util {
             chr(197).chr(184) => 'Y', chr(197).chr(185) => 'Z',
             chr(197).chr(186) => 'z', chr(197).chr(187) => 'Z',
             chr(197).chr(188) => 'z', chr(197).chr(189) => 'Z',
-            chr(197).chr(190) => 'z', chr(197).chr(191) => 's'
+            chr(197).chr(190) => 'z', chr(197).chr(191) => 's',
+
+            //Extra characters
+            chr(225).chr(187).chr(178) => 'Y'
         );
 
         $string = strtr($string, $chars);

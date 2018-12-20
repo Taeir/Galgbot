@@ -79,6 +79,10 @@ return [
         26 => 1,
     ],
 
+    //If the bot should only use words for which a definition is available.
+    //The bot will try to select a word with a definition 40 times, and will then return a word.
+    'only_defined_words' => false,
+
     //The location where dictionaries are (language.txt)
     'dictionaries_path' => __DIR__ . '/Dictionaries',
 

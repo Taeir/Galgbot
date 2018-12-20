@@ -1,6 +1,8 @@
 <?php
 namespace Longman\TelegramBot\Commands\SystemCommands;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 use Longman\TelegramBot\Conversation;
 use Longman\TelegramBot\Entities\Keyboard;
 use Longman\TelegramBot\Entities\ServerResponse;
@@ -8,7 +10,7 @@ use Longman\TelegramBot\Exception\TelegramException;
 use Longman\TelegramBot\Request;
 use Longman\TelegramBot\Commands\SystemCommand;
 use Spatie\Emoji\Emoji;
-use Taeir\Vliegbot\Util;
+use Taeir\Galgbot\Util;
 
 /**
  * Generic message command
@@ -83,7 +85,7 @@ class GenericmessageCommand extends SystemCommand
             return Request::emptyResponse();
         }
 
-        $positions = $this->strpos_all(strtoupper(Util::normalizeAccents($notes['word'])), $letter);
+        $positions = $this->strpos_all(Util::normalizeAccents($notes['word']), $letter);
         $notes['guessed'][] = $letter;
         if (count($positions) === 0) {
             $notes['lives']--;
@@ -103,10 +105,7 @@ class GenericmessageCommand extends SystemCommand
             $this->conversation->update();
 
             $data['text'] = $guess_part . "\n"
-                            . Util::getLang('game_lost') . '! ' . Emoji::pensiveFace() . "\n"
-                            . Util::getLang('the_word_was') . ' "' . $notes['word'] . "\"\n"
-                            . '[' . Util::getLang('definition_text') . '](' . Util::getLang('definition_url') . urlencode(strtolower($notes['word'])) . ")\n"
-                            . Util::getLang('play_again') . ' /start';
+                            . $this->resultText($notes['word'], false);
             $data['reply_markup'] = Keyboard::remove();
             $data['parse_mode'] = 'Markdown';
             $data['disable_web_page_preview'] = true;
@@ -118,10 +117,7 @@ class GenericmessageCommand extends SystemCommand
             $notes['won'] = true;
             $this->conversation->update();
 
-            $data['text'] = Util::getLang('game_won') . ' ' . Emoji::partyPopper() . "!\n"
-                            . Util::getLang('the_word_was') . ' "' . $notes['word'] . "\"\n"
-                            . '[' . Util::getLang('definition_text') . '](' . Util::getLang('definition_url') . urlencode(strtolower($notes['word'])) . ")\n"
-                            . Util::getLang('play_again') . ' /start';
+            $data['text'] = $this->resultText($notes['word'], true);
             $data['reply_markup'] = Keyboard::remove();
             $data['parse_mode'] = 'Markdown';
             $data['disable_web_page_preview'] = true;
@@ -150,7 +146,65 @@ class GenericmessageCommand extends SystemCommand
      */
     private function checkWon(string $word, array $guessed)
     {
-        return count(array_diff(str_split($word), $guessed)) === 0;
+        return count(array_diff(str_split(Util::normalizeAccents($word)), $guessed)) === 0;
+    }
+
+    /**
+     * Generates the result text.
+     *
+     * @param string $word
+     *      the word
+     * @param bool $won
+     *      if the game was won or not
+     *
+     * @return string
+     *      the result text
+     */
+    private function resultText(string $word, bool $won): string
+    {
+        if ($won) {
+            return Util::getLang('game_won') . ' ' . Emoji::partyPopper() . "!\n"
+                . Util::getLang('the_word_was') . "\"$word\"\n"
+                . '[' . Util::getLang('definition_text') . '](' . $this->getDefinitionUrl($word) . ")\n"
+                . Util::getLang('play_again') . ' /start';
+        } else {
+            return Util::getLang('game_lost') . '! ' . Emoji::pensiveFace() . "\n"
+                . Util::getLang('the_word_was') . "\"$word\"\n"
+                . '[' . Util::getLang('definition_text') . '](' . $this->getDefinitionUrl($word) . ")\n"
+                . Util::getLang('play_again') . ' /start';
+        }
+    }
+
+    /**
+     * Gets a url with a definition for the given word. The given url does not 404 on the requested page.
+     *
+     * @param string $word
+     *      the word
+     *
+     * @return string
+     *      the url
+     */
+    private function getDefinitionUrl(string $word): string
+    {
+        $word = urlencode(mb_strtolower($word));
+        foreach (Util::getLang('definition_url') as $base_url) {
+            $url = $base_url . $word;
+            try {
+                $client = new Client([
+                    'base_uri' => $base_url
+                ]);
+
+                $response = $client->get($url);
+            } catch (RequestException $e) {
+                continue;
+            }
+
+            if ($response->getStatusCode() == 200) {
+                return $url;
+            }
+        }
+
+        return 'https://google.com/search?q=' . $word;
     }
 
 

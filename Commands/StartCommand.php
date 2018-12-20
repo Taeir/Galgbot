@@ -2,10 +2,12 @@
 
 namespace Longman\TelegramBot\Commands\SystemCommands;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 use Longman\TelegramBot\Commands\SystemCommand;
 use Longman\TelegramBot\Conversation;
 use Longman\TelegramBot\Request;
-use Taeir\Vliegbot\Util;
+use Taeir\Galgbot\Util;
 
 /**
  * Start command
@@ -97,7 +99,35 @@ class StartCommand extends SystemCommand
     private function selectRandomWord(): string
     {
         $config = Util::getConfig();
+        $only_defined = $config['only_defined_words'];
         $dictionary = file("{$config['dictionaries_path']}/{$config['language']}.txt");
-        return strtoupper(substr($dictionary[rand(0, count($dictionary) -1)], 0, -1));
+
+        if (!$only_defined) {
+            return mb_strtoupper(substr($dictionary[rand(0, count($dictionary) - 1)], 0, -1));
+        } else {
+            for ($i = 0; $i < 40; $i++) {
+                $word = mb_strtoupper(substr($dictionary[rand(0, count($dictionary) - 1)], 0, -1));
+                $wordurl = urlencode(mb_strtolower($word));
+                foreach (Util::getLang('definition_url') as $base_url) {
+                    $url = $base_url . $wordurl;
+                    try {
+                        $client = new Client([
+                            'base_uri' => $base_url
+                        ]);
+
+                        $response = $client->get($url);
+                    } catch (RequestException $e) {
+                        continue;
+                    }
+
+                    if ($response->getStatusCode() == 200) {
+                        return $word;
+                    }
+                }
+            }
+
+            Util::logMsg('Unable to find word with definition after 20 attempts. Giving up.');
+            return $word;
+        }
     }
 }

@@ -26,7 +26,9 @@ return [
     //======================================================
     //Word explanation (definition)
     'definition_text' => 'Definition',
-    'definition_url' => 'https://en.wiktionary.org/wiki/',
+    'definition_url' => [
+        'https://en.wiktionary.org/wiki/',
+    ],
 
     //======================================================
     //Messages for statistics
