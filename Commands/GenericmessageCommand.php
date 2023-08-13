@@ -164,12 +164,12 @@ class GenericmessageCommand extends SystemCommand
     {
         if ($won) {
             return Util::getLang('game_won') . ' ' . Emoji::partyPopper() . "!\n"
-                . Util::getLang('the_word_was') . "\"$word\"\n"
+                . Util::getLang('the_word_was') . ' ' . "\"$word\"\n"
                 . '[' . Util::getLang('definition_text') . '](' . $this->getDefinitionUrl($word) . ")\n"
                 . Util::getLang('play_again') . ' /start';
         } else {
             return Util::getLang('game_lost') . '! ' . Emoji::pensiveFace() . "\n"
-                . Util::getLang('the_word_was') . "\"$word\"\n"
+                . Util::getLang('the_word_was') . ' ' . "\"$word\"\n"
                 . '[' . Util::getLang('definition_text') . '](' . $this->getDefinitionUrl($word) . ")\n"
                 . Util::getLang('play_again') . ' /start';
         }
